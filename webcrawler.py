@@ -1,47 +1,57 @@
-import sys
+#coding: utf-8
+
+import sys, os
 import socket
 from bs4 import BeautifulSoup
-import requests
+from req import *
 
-def webcrawler (deep, start_url):
-	deep = deep
+
+def webcrawler (deep, start_url, listaVisitados):
+	"""
+	Aqui se cria as listas para inserir os links e imagens
+	"""
 	lista = []
 	listaimg = []
-	i = 0
-	j = 0
-	r = requests.get(start_url)
-	soup = BeautifulSoup(r.text)
-	for d in xrange(deep):
-		print d
-		if d == 0:
+	"""
+	Verifica-se se a url passada como parametro esta na lista de
+	urls visitadas
+	Caso nao esteja ele continua
+	"""
+	if (start_url not in listaVisitados):
+		"""
+		Passo a passo
+		  Caso haja o http:// no inicio da string, é retirado com a função replace
+		  Adiciona o link inicial à lista de links visitados
+		  Faz a requisição http passando o link e a porta
+		usando a biblioteca BEAUTIFULSOUP, converte a pagina para texto
+		para então percorrer o texto em busca de links e imagens
+		"""
+		url = start_url.replace("http://", "")
+		listaVisitados.append(start_url)
+		
+		r = req(url, 80)
+		pag = BeautifulSoup(r)
+		for a in pag.findAll('a',href=True):
+			link = a['href']
+			lista.append(link)
+		for img in pag.findAll('img', src=True):
+			imglink = img['src']
+			listaimg.append(imglink)
+	else:
+		return
+	for i in xrange(len(lista)):
+		print lista[i]
+	for i in xrange(len(listaimg)):
+		print listaimg[i]	
+
+	
 			
-			for a in soup.findAll('a',href=True):
-				link = a['href']
-				i += 1
-				print link
-				lista.append(link)
-				#links = str(link).strip('[]').replace("http://", "").replace("u", "")
-				link = link.replace("http://", "")
-				links = str(link)
-				print str(i) + ") " + str(links)
-			for img in soup.findAll('img', src=True):
-				imglink = img['src']
-				j += 1
-				print imglink
-				listaimg.append(imglink)
-		else:
-			for lenght in xrange(len(lista)):
-				#print lista[lenght]
-				webcrawler(d, lista[lenght] )
-				
-				
-			
-	print "\n>> Total = %d \n" % i + "\n>> Total Imagens = %d \n" % j
+		
 	sys.exit()
 
 	
 		
 			
-
+listaVisitados = []
 url = raw_input(">> ")
-webcrawler(2, url)
+lista = webcrawler(2, url, listaVisitados)
