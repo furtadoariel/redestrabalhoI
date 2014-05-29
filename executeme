@@ -1,0 +1,2 @@
+#!/bin/bash
+python webcrawler.py $1 $2
