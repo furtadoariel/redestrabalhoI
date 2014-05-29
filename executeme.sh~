@@ -1,0 +1,3 @@
+#!/bin/bash
+python web-crawler.py $1 $2
+echo "Rodou"

@@ -1,10 +1,9 @@
 #coding: utf-8
-
 import sys, os
 import socket
 from bs4 import BeautifulSoup
 from req import *
-
+from threading import Thread
 
 def webcrawler (deep, start_url, listaVisitados):
 	"""
@@ -43,15 +42,12 @@ def webcrawler (deep, start_url, listaVisitados):
 		print lista[i]
 	for i in xrange(len(listaimg)):
 		print listaimg[i]	
-
-	
-			
 		
 	sys.exit()
-
-	
-		
-			
+prof = 0
+url = ""
 listaVisitados = []
-url = raw_input(">> ")
-lista = webcrawler(2, url, listaVisitados)
+if(len(sys.argv)>1):
+	url = sys.argv[2]
+	prof = sys.argv[1]
+lista = webcrawler(prof, url, listaVisitados)
