@@ -4,6 +4,7 @@ import sys, os
 import socket
 from bs4 import BeautifulSoup
 from req import *
+import thread
 
 
 def webcrawler (deep, start_url, listaVisitados):
@@ -20,13 +21,17 @@ def webcrawler (deep, start_url, listaVisitados):
 	if (start_url not in listaVisitados):
 		"""
 		Passo a passo
-		  Caso haja o http:// no inicio da string, é retirado com a função replace
+		  Caso haja o http:// ou https:// no inicio da string, é retirado com a função replace
 		  Adiciona o link inicial à lista de links visitados
 		  Faz a requisição http passando o link e a porta
 		usando a biblioteca BEAUTIFULSOUP, converte a pagina para texto
 		para então percorrer o texto em busca de links e imagens
 		"""
-		url = start_url.replace("http://", "")
+		if start_url.startswith("http://"):
+			url = start_url.replace("http://", "")
+		elif start_url.startswith("https://"):
+			url = start_url.replace("https://", "")
+			
 		listaVisitados.append(start_url)
 		
 		r = req(url, 80)
@@ -39,19 +44,25 @@ def webcrawler (deep, start_url, listaVisitados):
 			listaimg.append(imglink)
 	else:
 		return
-	for i in xrange(len(lista)):
-		print lista[i]
-	for i in xrange(len(listaimg)):
-		print listaimg[i]	
-
+	"""
+	pega o tamanho de lista para repartir em threads para realizar
+	as próximas buscas
+	"""
 	
-			
-		
+	for i in xrange(len(lista)):
+		if deep == 0:
+			return listaVisitados
+		else:
+			webcrawler(deep-1, lista[i], listaVisitados)
 	sys.exit()
+
+
 
 	
 		
 			
 listaVisitados = []
 url = raw_input(">> ")
-lista = webcrawler(2, url, listaVisitados)
+lista = webcrawler(1, url, listaVisitados)
+#for i in (len(lista)):
+#	print lista[i]
