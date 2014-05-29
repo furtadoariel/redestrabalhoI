@@ -1,7 +1,7 @@
 import socket
 import sys
 import urlparse
-	
+
 site = ""
 profundidade = 0
 
@@ -19,7 +19,7 @@ def req (site, porta):
 
 	ip = socket.gethostbyname (host)
 	so.connect ((ip,porta))
-	
+
 	http = " HTTP/1.1\r\nHost: "
 	get = "GET "
 	barras = "\r\n\r\n"
@@ -28,22 +28,19 @@ def req (site, porta):
 
 	resposta = ''
 	repeticao = 0
-	
-	
+
+	buff = so.recv(4096)
 	for i in range (0,5):
-		buff = so.recv(4096)
 		if (buff == ""):
 			repeticao +=1
-		if( i ==5):
-			break
 		resposta += buff
 	so.close()
 	return resposta
-	
+
 if (len(sys.argv) > 1):
 	link = sys.argv[1]
 	profundidade = int(sys.argv[2])
-	
+
 teste = req(link,80)
 print teste
 #print link
