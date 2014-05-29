@@ -2,59 +2,49 @@ import socket
 import sys
 import urlparse
 	
-def req ( site, porta ): 
+site = ""
+profundidade = 0
 
-	try:
-		so = socket.socket ( socket.AF_INET, socket.SOCK_STREAM )
-
-	except socket.error:
-		print "Erro"
-		sys.exit ( )	
-
+def req (site, porta): 
+	so = socket.socket ( socket.AF_INET, socket.SOCK_STREAM )
 	host = site
 	caminho = "/"
 
-	partesUrl = site.split("/")
+	partesUrl = site.split(caminho)
 	if(len(partesUrl) > 1):
 		host = partesUrl[0]
 		caminho = site.replace(host,"",1)
 		print "Host: " + host
-		print "Path: " + caminho
+		print "Caminho: " + caminho
 
-	try:
-		ip = socket.gethostbyname ( host )
-
-	except socket.gaierror:
-		print "Nao conseguiu converter"
-		sys.exit ( )
-
-	so.connect ( ( ip, porta ) )
+	ip = socket.gethostbyname (host)
+	so.connect ((ip,porta))
 	
 	http = " HTTP/1.1\r\nHost: "
 	get = "GET "
-	x = "\r\n\r\n"
-	mensagem = get + caminho + http + host + x
-	try:
-		so.send ( mensagem )
-
-	except socket.error:
-		print "Erro ao enviar mensagem"
-		sys.exit ( )
+	barras = "\r\n\r\n"
+	mensagem = get + caminho + http + host + barras
+	so.send ( mensagem ) #envia mensagem
 
 	resposta = ''
-
 	repeticao = 0
 	
-	while (True):
+	
+	for i in range (0,5):
 		buff = so.recv(4096)
 		if (buff == ""):
-			repeticao += 1
-		if (repeticao == 5):
+			repeticao +=1
+		if( i ==5):
 			break
 		resposta += buff
-		
 	so.close()
 	return resposta
 	
-teste = req("yahoo.com.br",80)
+if (len(sys.argv) > 1):
+	link = sys.argv[1]
+	profundidade = int(sys.argv[2])
+	
+teste = req(link,80)
 print teste
+#print link
+#print profundidade
