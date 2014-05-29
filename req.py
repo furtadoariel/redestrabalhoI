@@ -1,47 +1,33 @@
 import socket
 import sys
 import urlparse
-
-site = ""
-profundidade = 0
-
+import requests
 def req (site, porta): 
+	
 	so = socket.socket ( socket.AF_INET, socket.SOCK_STREAM )
-	host = site
-	caminho = "/"
-
-	partesUrl = site.split(caminho)
+	if so:
+		partesUrl = site.split('/')
+	else:
+		print "erro ao ciar o socket"
 	if(len(partesUrl) > 1):
 		host = partesUrl[0]
 		caminho = site.replace(host,"",1)
 		print "Host: " + host
 		print "Caminho: " + caminho
+	else:
+		host = site
+		caminho = '/'
 
 	ip = socket.gethostbyname (host)
-	so.connect ((ip,porta))
+	so = socket.create_connection((ip,porta))
 
-	http = " HTTP/1.1\r\nHost: "
-	get = "GET "
-	barras = "\r\n\r\n"
-	mensagem = get + caminho + http + host + barras
+
+	mensagem = "GET " + caminho + " HTTP/1.1\r\nHost: " + host + "\r\n\r\n"
 	so.send ( mensagem ) #envia mensagem
 
 	resposta = ''
-	repeticao = 0
-
-	buff = so.recv(4096)
-	for i in range (0,5):
-		if (buff == ""):
-			repeticao +=1
-		resposta += buff
-	so.close()
+	package = so.recv(4096)
+	while package:
+		resposta += package
+		package = so.recv(4096)
 	return resposta
-
-if (len(sys.argv) > 1):
-	link = sys.argv[1]
-	profundidade = int(sys.argv[2])
-
-teste = req(link,80)
-print teste
-#print link
-#print profundidade
