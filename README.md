@@ -2,7 +2,7 @@ Alunos: Ariel Furtado Azevedo(11200290), Michel Silveira Pedroso (11108257)
 Universidade Federal de Pelotas
 Professor: Mauricio Pilla
 Disciplina: Redes de Computadores
-
+===========================================================================
 Trabalho 1 - WebCrawler multithreaded
 ---------------------------------------------------------------------------
 
