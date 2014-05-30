@@ -55,14 +55,10 @@ def webcrawler (deep, start_url, listaVisitados):
 		else:
 			webcrawler(deep-1, lista[i], listaVisitados)
 	sys.exit()
-
-
-
-	
-		
 			
 listaVisitados = []
-url = raw_input(">> ")
-lista = webcrawler(1, url, listaVisitados)
-#for i in (len(lista)):
-#	print lista[i]
+#url = raw_input(">> ")
+if(len(sys.argv)>1):
+	url = sys.argv[2]
+	prof = int(sys.argv[1])
+lista = webcrawler(prof, url, listaVisitados)
