@@ -10,7 +10,7 @@ Trabalho 1 - WebCrawler multithreaded
 ===========================================================================
 
 Implementação:
-===========================================================================
+---------------------------------------------------------------------------
 A linguagem utilizada foi Python, devido a sua agilidade e facilidade para
 implementações em recursos relacionado a protocolos de Internet.
 O arquivo req.py realiza a conexão com a página, onde será aplicado o
@@ -26,7 +26,7 @@ visitado retornando depois da execução para o próximo link não visitado por
 ele e nem por outra Thread.
 
 Arquivos: 
-===========================================================================
+---------------------------------------------------------------------------
 - webcrawler.py
 - req.py
 - Readme
@@ -34,7 +34,7 @@ Arquivos:
 - bs4 (pasta da biblioteca BeautifulSoup)
 
 Execução:
-===========================================================================
+---------------------------------------------------------------------------
 Dentro do arquivo enviado contém o script executeme, onde será necessário
 executar no terminal com o comando "sh executeme".
 Antes de executar o script, deve ser feito o download da biblioteca BeautifulSoup, 
@@ -42,7 +42,7 @@ utilizando o comando "sudo apt-get install python-bs4" ou mantendo a biblioteca
 junto com os arquivos de execução.
 
 Problemas:
-===========================================================================
+---------------------------------------------------------------------------
 Durante o desenvolvimento do trabalho, ocorrou um problema no envio dos arquivos
 para o GitHud, onde varios arquivos foram enviados por engano(repetidos,desnecessários...).
 Foi necessário remover todos os arquivos do repositório para conseguir estabilizar a
