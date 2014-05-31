@@ -27,11 +27,11 @@ ele e nem por outra Thread.
 
 Arquivos: 
 ---------------------------------------------------------------------------
-- webcrawler.py
+<code>- webcrawler.py
 - req.py
 - Readme
 - executeme
-- bs4 (pasta da biblioteca BeautifulSoup)
+- bs4 (pasta da biblioteca BeautifulSoup)</code>
 
 Execução:
 ---------------------------------------------------------------------------
