@@ -4,7 +4,8 @@ import sys, os
 import socket
 from bs4 import BeautifulSoup
 from req import *
-import thread
+from downloadContent import *
+import threading
 
 
 def webcrawler (deep, start_url, listaVisitados):
@@ -32,10 +33,18 @@ def webcrawler (deep, start_url, listaVisitados):
 		elif start_url.startswith("https://"):
 			url = start_url.replace("https://", "")
 			
-		listaVisitados.append(start_url)
-		
+			
+#################################################################################
+
+
+		listaVisitados.append(url)		
 		r = req(url, 80)
 		pag = BeautifulSoup(r)
+		
+#################################################################################
+
+
+
 		for a in pag.findAll('a',href=True):
 			link = a['href']
 			lista.append(link)
@@ -44,21 +53,36 @@ def webcrawler (deep, start_url, listaVisitados):
 			listaimg.append(imglink)
 	else:
 		return
-	"""
-	pega o tamanho de lista para repartir em threads para realizar
-	as próximas buscas
-	"""
 	
 	for i in xrange(len(lista)):
 		if deep == 0:
-			return listaVisitados
+			break			
 		else:
 			webcrawler(deep-1, lista[i], listaVisitados)
+
+	for link in listaVisitados:
+		print link
+		try:
+			thread = threading.Thread(target = contentDownload, args = (link, ))
+			thread.start()
+		except Exception, ex:
+			print ex
+	for linkimg in listaimg:
+		try:
+			thread2=threading.Thread(target= contentDownload, args= (linkimg, ))
+			thread2.start()
+		except Exception, ex:
+			print ex
+			
+
 	sys.exit()
 			
 listaVisitados = []
-#url = raw_input(">> ")
+url = raw_input(">> ")
+"""
 if(len(sys.argv)>1):
 	url = sys.argv[2]
 	prof = int(sys.argv[1])
 lista = webcrawler(prof, url, listaVisitados)
+"""
+webcrawler(0, url, listaVisitados)
