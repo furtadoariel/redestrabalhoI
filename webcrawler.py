@@ -29,9 +29,9 @@ def webcrawler (deep, start_url, listaVisitados):
 		para então percorrer o texto em busca de links e imagens
 		"""
 		if start_url.startswith("http://"):
-			url = start_url.replace("http://", "")
+			url = start_url.replace("http://","")
 		elif start_url.startswith("https://"):
-			url = start_url.replace("https://", "")
+			url = start_url.replace("https://","")
 			
 			
 #################################################################################
@@ -61,16 +61,34 @@ def webcrawler (deep, start_url, listaVisitados):
 			webcrawler(deep-1, lista[i], listaVisitados)
 
 	for link in listaVisitados:
-		print link
 		try:
 			thread = threading.Thread(target = contentDownload, args = (link, ))
 			thread.start()
+			print link
+			if(link+1 > len(listaVisitados)):
+				break
+			thread2 = threading.Thread(target = contentDownload, args = (link+1, ))
+			thread2.start()
+			link = link+1
+			print link
+			
 		except Exception, ex:
 			print ex
 	for linkimg in listaimg:
 		try:
-			thread2=threading.Thread(target= contentDownload, args= (linkimg, ))
+			thread = threading.Thread(target = contentDownload, args = (linkimg, ))
+			thread.start()
+			if(link+1 > len(listaVisitados)):
+				break
+			thread2 = threading.Thread(target = contentDownload, args = (linkimg+1, ))
 			thread2.start()
+			link = link+1
+			thread3 = threading.Thread(target = contentDownload, args = (linkimg+1, ))
+			thread3.start()
+			link = link+1
+			thread4 = threading.Thread(target = contentDownload, args = (linkimg+1, ))
+			thread4.start()
+			link = link+1
 		except Exception, ex:
 			print ex
 			
@@ -78,11 +96,11 @@ def webcrawler (deep, start_url, listaVisitados):
 	sys.exit()
 			
 listaVisitados = []
-url = raw_input(">> ")
-"""
+#url = raw_input(">> ")
+
 if(len(sys.argv)>1):
 	url = sys.argv[2]
 	prof = int(sys.argv[1])
-lista = webcrawler(prof, url, listaVisitados)
-"""
-webcrawler(0, url, listaVisitados)
+#lista = webcrawler(prof, url, listaVisitados)
+
+webcrawler(prof, url, listaVisitados)

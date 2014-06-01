@@ -20,10 +20,9 @@ A implementação contém recursividade, imposta na descrição do trabalho, ond
 a primeira função a ser chamada é "webcrawler(deep,url,listaVisitados)" e as
 próximas chamadas da função decrementam a variavel deep, acessando cada nivel
 de profundidade recursivamente.
-O arquivo "webcrawler.py" contém 8 Threads trabalhando em paralelo, com uma
-lista de links a serem visitados, cada thread acessa o primeiro link não 
-visitado retornando depois da execução para o próximo link não visitado por
-ele e nem por outra Thread.
+O arquivo "webcrawler.py" contém 6 Threads trabalhando em paralelo, duas 
+responsáveis pelo donwload dos links e as outras quatro para o download das
+imagens de cada nivel de profundidade do site.
 
 Arquivos: 
 ---------------------------------------------------------------------------
@@ -45,6 +44,6 @@ junto com os arquivos de execução.
 Problemas:
 ---------------------------------------------------------------------------
 Durante o desenvolvimento do trabalho, ocorrou um problema no envio dos arquivos
-para o GitHud, onde varios arquivos foram enviados por engano(repetidos,desnecessários...).
+para o GitHub, onde varios arquivos foram enviados por engano(repetidos,desnecessários...).
 Foi necessário remover todos os arquivos do repositório para conseguir estabilizar a
-situação.
+situação, enviando após todos os arquivos corretos e necessários.
