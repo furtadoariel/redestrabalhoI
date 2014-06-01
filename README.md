@@ -29,6 +29,7 @@ Arquivos:
 ---------------------------------------------------------------------------
 <code>- webcrawler.py</code>
 <code>- req.py</code>
+<code>- downloadContent.py</code>
 <code>- Readme</code>
 <code>- executeme</code>
 <code>- bs4 (pasta da biblioteca BeautifulSoup)</code>
