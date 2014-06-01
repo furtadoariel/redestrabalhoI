@@ -1,3 +1,5 @@
+#coding: utf-8
+
 import urllib2
 import thread
 
@@ -5,8 +7,8 @@ import thread
 Função que realiza os downloads através de uma lista de links
 @param urlimg
 """
-def contentDownload(urlimg):
-	for url in urlimg:
+def contentDownload(url):
+		print url
 		#o nome do arquivo vai pegar a url e pegar a ultima parte da url como nome para o arquivo
 		file_name = url.split('/')[-1]
 		u = urllib2.urlopen(url)
