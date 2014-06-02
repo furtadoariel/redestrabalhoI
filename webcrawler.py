@@ -36,7 +36,7 @@ def webcrawler (deep, start_url, listaVisitados):
 			
 #################################################################################
 
-
+		lista.append(url)
 		listaVisitados.append(url)		
 		r = req(url, 80)
 		pag = BeautifulSoup(r)
@@ -60,12 +60,12 @@ def webcrawler (deep, start_url, listaVisitados):
 		else:
 			webcrawler(deep-1, lista[i], listaVisitados)
 
-	for link in listaVisitados:
+	for link in lista:
 		try:
 			thread = threading.Thread(target = contentDownload, args = (link, ))
 			thread.start()
 			print link
-			if(link+1 > len(listaVisitados)):
+			if(link+1 > len(lista)):
 				break
 			thread2 = threading.Thread(target = contentDownload, args = (link+1, ))
 			thread2.start()
